@@ -1,0 +1,637 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Header Files\dynamic">
+      <UniqueIdentifier>{9e8e5b8a-48b8-4794-87d2-b8e5ee14bc95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\isosurface-extraction">
+      <UniqueIdentifier>{86212af4-f85c-4b4e-b4ed-6e8ba7fdcf03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\primitive">
+      <UniqueIdentifier>{a1ab3791-0026-4cec-869b-8a64500068e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sketch">
+      <UniqueIdentifier>{aa39cb20-73d4-4103-ba94-20d5c1b5b3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tool">
+      <UniqueIdentifier>{b0e02eb3-fa72-48d1-8d0a-5ef05229162b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\view">
+      <UniqueIdentifier>{e41bf7dd-907c-47c3-8c45-bce739dfdc72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tool\sculpt">
+      <UniqueIdentifier>{647b84eb-e5d1-41c0-b6f6-1792b2bb5aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tool\trim-mesh">
+      <UniqueIdentifier>{5d79a81d-7da2-46b9-9c96-144b88a8016a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tool\util">
+      <UniqueIdentifier>{2e84dedd-4bbd-4129-8bb7-cd01db9e83e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\view\info-page">
+      <UniqueIdentifier>{ff0f6eae-eec1-4974-8ee6-04d4f07ea3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tool\sculpt\util">
+      <UniqueIdentifier>{6426dab1-1fab-48cd-90de-758cd4be8d7e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\camera.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\color.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\config.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\configurable.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dimension.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\distance.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\history.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\import-export.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\intersection.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\isosurface-extraction.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kvstore.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\log.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mesh.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mesh-util.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mirror.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opengl.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\opengl-buffer-id.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\renderer.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render-mode.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shader.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\state.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\time-delta.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\xml-conversion.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dynamic\dynamicmesh.cpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dynamic\faces.cpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dynamic\octree.cpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\isosurface-extraction\grid.cpp">
+      <Filter>Header Files\isosurface-extraction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\aabox.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\cone.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\cone-sphere.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\cylinder.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\plane.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\ray.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\sphere.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\primitive\triangle.cpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\bone-intersection.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\node-intersection.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\path.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\path-intersection.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\convert-sketch.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\delete-mesh.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\delete-sketch.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\edit-sketch.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\move-camera.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\new-mesh.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\remesh.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sketch-spheres.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\transform-mesh.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\trim-mesh.cpp">
+      <Filter>Header Files\tool</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\axis.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\color-button.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\configuration.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\context-menu.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\cursor.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\double-slider.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\floor-plane.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\gl-widget.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\info-pane.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\input.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\key-event.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\light.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\main-window.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\menu-bar.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\pointing-event.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\resolution-slider.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\shortcut.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\tool-pane.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\tool-tip.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\two-column-grid.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\vector-edit.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\util\movement.cpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\util\rotation.cpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\util\scaling.cpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\util\step.cpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\crease.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\draw.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\flatten.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\grab.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\pinch.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\reduce.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\smooth.cpp">
+      <Filter>Header Files\tool\sculpt</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\trim-mesh\border.cpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\trim-mesh\split-mesh.cpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\trim-mesh\trimmesh_action.cpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\util\action.cpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\util\brush.cpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tool\sculpt\util\edge-collection.cpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dynamic\dynamicmesh-intersection.cpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\sketchmesh.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sketch\sketchmesh-intersection.cpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\info-pane\infopanescene.cpp">
+      <Filter>Header Files\view\info-page</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\viewlog.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+    <ClCompile Include="src\view\viewutil.cpp">
+      <Filter>Header Files\view</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\bitset.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cache.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\configurable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dimension.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\distance.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hash.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\history.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\import-export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\intersection.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\isosurface-extraction.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\kvstore.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\log.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\macro.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maybe.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mesh-util.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mirror.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opengl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\opengl-buffer-id.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render-mode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\time-delta.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tree.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\variant.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\xml-conversion.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dynamic\dynamicmesh.hpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dynamic\faces.hpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dynamic\octree.hpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\isosurface-extraction\grid.hpp">
+      <Filter>Header Files\isosurface-extraction</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\aabox.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\cone.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\cone-sphere.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\cylinder.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\plane.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\ray.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\sphere.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\primitive\triangle.hpp">
+      <Filter>Header Files\primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\bone-intersection.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\fwd.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\node-intersection.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\path.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\path-intersection.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\key.hpp">
+      <Filter>Header Files\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\move-camera.hpp">
+      <Filter>Header Files\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\sculpt.hpp">
+      <Filter>Header Files\tool</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\axis.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\configuration.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\context-menu.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\cursor.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\floor-plane.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\info-pane.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\input.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\key-event.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\light.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\menu-bar.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\pointing-event.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\shortcut.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\tool-pane.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\tool-tip.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\two-column-grid.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\util\movement.hpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\util\rotation.hpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\util\scaling.hpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\util\step.hpp">
+      <Filter>Header Files\tool\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\trim-mesh\border.hpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\trim-mesh\split-mesh.hpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\trim-mesh\trimmesh_action.hpp">
+      <Filter>Header Files\tool\trim-mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\sculpt\util\action.hpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\sculpt\util\brush.hpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tool\sculpt\util\edge-collection.hpp">
+      <Filter>Header Files\tool\sculpt\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dynamic\dynamicmesh-intersection.hpp">
+      <Filter>Header Files\dynamic</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\sketchmesh.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sketch\sketchmesh-intersection.hpp">
+      <Filter>Header Files\sketch</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\info-pane\infopanescene.hpp">
+      <Filter>Header Files\view\info-page</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\viewlog.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+    <ClInclude Include="src\view\viewutil.hpp">
+      <Filter>Header Files\view</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\IsosurfaceExtractionConfigurations.hs">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\isosurface-extraction\IsosurfaceExtractionConfigurations.hs">
+      <Filter>Header Files\isosurface-extraction</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="src\view\color-button.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+    <QtMoc Include="src\view\double-slider.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+    <QtMoc Include="src\view\gl-widget.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+    <QtMoc Include="src\view\main-window.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+    <QtMoc Include="src\view\resolution-slider.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+    <QtMoc Include="src\view\vector-edit.hpp">
+      <Filter>Header Files\view</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>

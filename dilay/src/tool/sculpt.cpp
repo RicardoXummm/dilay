@@ -1,0 +1,508 @@
+/* This file is part of Dilay
+ * Copyright © 2015-2018 Alexander Bau
+ * Use and redistribute under the terms of the GNU General Public License
+ */
+#include <QCheckBox>
+#include <QFrame>
+#include <QWheelEvent>
+#include "cache.hpp"
+#include "camera.hpp"
+#include "config.hpp"
+#include "dynamic/dynamicmesh-intersection.hpp"
+#include "dynamic/dynamicmesh.hpp"
+#include "history.hpp"
+#include "maybe.hpp"
+#include "mirror.hpp"
+#include "primitive/ray.hpp"
+#include "scene.hpp"
+#include "state.hpp"
+#include "tool/sculpt.hpp"
+#include "tool/sculpt/util/action.hpp"
+#include "tool/sculpt/util/brush.hpp"
+#include "tool/util/movement.hpp"
+#include "tool/util/step.hpp"
+#include "view/cursor.hpp"
+#include "view/double-slider.hpp"
+#include "view/pointing-event.hpp"
+#include "view/tool-tip.hpp"
+#include "view/two-column-grid.hpp"
+#include "view/viewutil.hpp"
+
+namespace
+{
+  enum class SculptState
+  {
+    None,
+    Started,
+    Sculpted,
+    Ended
+  };
+}
+
+struct ToolSculpt::Impl
+{
+  ToolSculpt*       self;
+  SculptBrush       brush;
+  ViewCursor        cursor;
+  CacheProxy        commonCache;
+  ViewDoubleSlider& radiusEdit;
+  ViewDoubleSlider* secondarySlider;
+  bool              absoluteRadius;
+  SculptState       sculptState;
+  ToolUtilStep      step;
+
+  Impl (ToolSculpt* s)
+    : self (s)
+    , commonCache (this->self->cache ("sculpt"))
+    , radiusEdit (
+        ViewUtil::slider (2, 0.01f, this->commonCache.get<float> ("radius", 0.1f), 1.0f, 3))
+    , secondarySlider (nullptr)
+    , absoluteRadius (this->commonCache.get<bool> ("absolute-radius", true))
+    , sculptState (SculptState::None)
+  {
+  }
+
+  ToolResponse runInitialize ()
+  {
+    this->self->supportsMirror ();
+
+    this->setupBrush ();
+    this->setupCursor ();
+    this->setupProperties ();
+    this->setupToolTip ();
+
+    return ToolResponse::Redraw;
+  }
+
+  void setupBrush ()
+  {
+    this->brush.subdivide (this->commonCache.get<bool> ("subdivide", true));
+
+    if (this->absoluteRadius)
+    {
+      this->setAbsoluteRadius ();
+    }
+    else
+    {
+      this->setRelativeRadius ();
+    }
+    this->self->runSetupBrush (this->brush);
+  }
+
+  void setupCursor ()
+  {
+    assert (this->brush.radius () > 0.0f);
+
+    DynamicMeshIntersection intersection;
+    if (this->self->intersectsScene (this->self->cursorPosition (), intersection))
+    {
+      this->cursor.enable ();
+      this->cursor.position (intersection.position ());
+    }
+    else
+    {
+      this->cursor.disable ();
+    }
+    this->cursor.radius (this->brush.radius ());
+
+    this->self->runSetupCursor (this->cursor);
+  }
+
+  void setupProperties ()
+  {
+    ViewTwoColumnGrid& properties = this->self->properties ();
+
+    ViewUtil::connect (this->radiusEdit, [this](float r) {
+      if (this->absoluteRadius)
+      {
+        this->setAbsoluteRadius ();
+      }
+      else
+      {
+        this->setRelativeRadius ();
+      }
+      this->commonCache.set ("radius", r);
+      this->self->updateGlWidget ();
+    });
+    properties.addStacked (QObject::tr ("Radius"), this->radiusEdit);
+
+    QCheckBox& absRadiusEdit =
+      ViewUtil::checkBox (QObject::tr ("Absolute radius"), this->absoluteRadius);
+    ViewUtil::connect (absRadiusEdit, [this](bool a) {
+      if (a)
+      {
+        this->setAbsoluteRadius ();
+      }
+      else
+      {
+        this->setRelativeRadius ();
+      }
+      this->commonCache.set ("absolute-radius", a);
+      this->self->updateGlWidget ();
+    });
+    properties.add (absRadiusEdit);
+
+    this->self->addMirrorProperties ();
+    properties.add (ViewUtil::horizontalLine ());
+
+    this->self->runSetupProperties (properties);
+  }
+
+  void setupToolTip ()
+  {
+    ViewToolTip toolTip;
+
+    this->self->runSetupToolTip (toolTip);
+    toolTip.add (ViewInputEvent::R, QObject::tr ("Move to change radius"));
+
+    this->self->state ().setToolTip (&toolTip);
+  }
+
+  void runRender () const
+  {
+    Camera& camera = this->self->state ().camera ();
+
+    if (this->cursor.isEnabled ())
+    {
+      this->cursor.render (camera);
+    }
+  }
+
+  ToolResponse runPointingEvent (const ViewPointingEvent& e)
+  {
+    if (this->self->onKeymap ('r') && e.moveEvent ())
+    {
+      this->radiusEdit.setIntValue (this->radiusEdit.intValue () + e.delta ().x);
+    }
+    else if (this->secondarySlider && this->self->onKeymap ('i') && e.moveEvent ())
+    {
+      this->secondarySlider->setIntValue (this->secondarySlider->intValue () + e.delta ().x);
+    }
+    else if (e.leftButton ())
+    {
+      if (e.pressEvent ())
+      {
+        this->self->snapshotDynamicMeshes ();
+        this->sculptState = SculptState::Started;
+      }
+
+      const bool doSculpt =
+        this->sculptState == SculptState::Started || this->sculptState == SculptState::Sculpted;
+      if (doSculpt && this->self->runSculptPointingEvent (e))
+      {
+        this->sculptState = SculptState::Sculpted;
+      }
+
+      if (e.releaseEvent ())
+      {
+        this->runCommit ();
+      }
+    }
+    else
+    {
+      this->self->runSculptPointingEvent (e);
+    }
+    return ToolResponse::Redraw;
+  }
+
+  ToolResponse runCursorUpdate (const glm::ivec2& pos)
+  {
+    DynamicMeshIntersection cursorIntersection;
+    this->setCursorByIntersection (pos, cursorIntersection);
+    return ToolResponse::Redraw;
+  }
+
+  ToolResponse runCommit ()
+  {
+    this->brush.resetPointOfAction ();
+
+    if (this->sculptState == SculptState::Started)
+    {
+      this->self->state ().history ().dropPastSnapshot ();
+    }
+    this->sculptState = SculptState::None;
+    return ToolResponse::None;
+  }
+
+  void runFromConfig ()
+  {
+    const Config& config = this->self->config ();
+
+    this->brush.detailFactor (config.get<float> ("editor/tool/sculpt/detail-factor"));
+    this->brush.stepWidthFactor (config.get<float> ("editor/tool/sculpt/step-width-factor"));
+
+    this->cursor.color (this->self->config ().get<Color> ("editor/tool/cursor-color"));
+  }
+
+  void addDefaultToolTip (ViewToolTip& toolTip, bool hasInvertedMode, bool hasIntensity)
+  {
+    toolTip.add (ViewInputEvent::MouseLeft, QObject::tr ("Drag to sculpt"));
+
+    if (hasInvertedMode)
+    {
+      toolTip.add (ViewInputEvent::MouseLeft, ViewInputModifier::Shift,
+                   QObject::tr ("Drag to sculpt inverted"));
+    }
+
+    if (hasIntensity)
+    {
+      toolTip.add (ViewInputEvent::I, QObject::tr ("Move to change intensity"));
+    }
+  }
+
+  void sculpt ()
+  {
+    assert (this->brush.hasPointOfAction ());
+
+    ToolSculptAction::sculpt (this->brush);
+    if (this->self->mirrorEnabled () && this->brush.mesh ().isEmpty () == false)
+    {
+      this->brush.mirror (this->self->mirror ().plane ());
+      ToolSculptAction::sculpt (this->brush);
+      this->brush.mirror (this->self->mirror ().plane ());
+    }
+
+    if (this->brush.mesh ().isEmpty ())
+    {
+      this->self->state ().scene ().deleteEmptyMeshes ();
+      this->brush.resetPointOfAction ();
+    }
+  }
+
+  bool setCursorByIntersection (const glm::ivec2& pos, DynamicMeshIntersection& intersection)
+  {
+    if (this->self->intersectsScene (pos, intersection))
+    {
+      if (this->absoluteRadius == false)
+      {
+        this->setRelativeRadius (intersection.distance ());
+      }
+      this->cursor.enable ();
+      this->cursor.position (intersection.position ());
+      return true;
+    }
+    else
+    {
+      this->cursor.disable ();
+      return false;
+    }
+  }
+
+  bool updateBrushByIntersection (bool useRecentMesh, const glm::vec3& cursorStep)
+  {
+    const glm::vec3 from = this->self->state ().camera ().position ();
+    const PrimRay   ray = PrimRay (from, cursorStep - from);
+
+    DynamicMeshIntersection intersection;
+
+    if (this->self->intersectsScene (ray, intersection))
+    {
+      if (this->brush.hasPointOfAction () && (&this->brush.mesh () != &intersection.mesh ()))
+      {
+        this->brush.mesh ().bufferData ();
+      }
+
+      if (useRecentMesh)
+      {
+        Intersection rIntersection;
+        if (this->self->intersectsRecentDynamicMesh (ray, rIntersection))
+        {
+          this->brush.setPointOfAction (intersection.mesh (), rIntersection.position (),
+                                        rIntersection.normal ());
+        }
+        else
+        {
+          this->brush.mesh ().bufferData ();
+          this->brush.resetPointOfAction ();
+          return false;
+        }
+      }
+      else
+      {
+        this->brush.setPointOfAction (intersection.mesh (), intersection.position (),
+                                      intersection.normal ());
+      }
+      return true;
+    }
+    else
+    {
+      this->brush.mesh ().bufferData ();
+      this->brush.resetPointOfAction ();
+      return false;
+    }
+  }
+
+  bool drawlikeStroke (const ViewPointingEvent& e, bool useRecentMesh,
+                       const std::function<void()>* toggle)
+  {
+    DynamicMeshIntersection cursorIntersection;
+
+    if (this->setCursorByIntersection (e.position (), cursorIntersection) && e.leftButton ())
+    {
+      SBParameters& parameters = this->brush.parameters<SBParameters> ();
+      const float   defaultIntesity = parameters.intensity ();
+      const bool    doToggle = toggle && e.modifiers () == Qt::ShiftModifier;
+
+      parameters.intensity (defaultIntesity * e.intensity ());
+
+      if (doToggle)
+      {
+        (*toggle) ();
+      }
+
+      if (this->brush.hasPointOfAction ())
+      {
+        this->step.stepWidth (this->brush.stepWidth ());
+        this->step.position (this->brush.position ());
+        this->step.step (cursorIntersection.position (),
+                         [this, useRecentMesh](const glm::vec3& brushStep) {
+                           if (this->brush.hasPointOfAction ())
+                           {
+                             if (this->updateBrushByIntersection (useRecentMesh, brushStep))
+                             {
+                               this->sculpt ();
+                             }
+                             return true;
+                           }
+                           else
+                           {
+                             return false;
+                           }
+                         });
+      }
+      else
+      {
+        if (this->updateBrushByIntersection (useRecentMesh, cursorIntersection.position ()))
+        {
+          this->sculpt ();
+        }
+      }
+
+      if (this->brush.hasPointOfAction ())
+      {
+        assert (this->brush.mesh ().isEmpty () == false);
+        this->brush.mesh ().bufferData ();
+      }
+
+      if (doToggle)
+      {
+        (*toggle) ();
+      }
+      parameters.intensity (defaultIntesity);
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  bool grablikeStroke (const ViewPointingEvent& e, ToolUtilMovement& movement)
+  {
+    DynamicMeshIntersection cursorIntersection;
+
+    if (e.pressEvent ())
+    {
+      if (e.leftButton ())
+      {
+        if (this->setCursorByIntersection (e.position (), cursorIntersection))
+        {
+          this->brush.setPointOfAction (cursorIntersection.mesh (), cursorIntersection.position (),
+                                        cursorIntersection.normal ());
+          this->cursor.disable ();
+          movement.reset (cursorIntersection.position ());
+          return true;
+        }
+        else
+        {
+          this->brush.resetPointOfAction ();
+          return false;
+        }
+      }
+      else
+      {
+        this->cursor.enable ();
+        this->brush.resetPointOfAction ();
+        return false;
+      }
+    }
+    else
+    {
+      if (e.leftButton () == false)
+      {
+        this->setCursorByIntersection (e.position (), cursorIntersection);
+        return false;
+      }
+      else if (this->brush.hasPointOfAction ())
+      {
+        if (e.moveEvent () && movement.move (e))
+        {
+          this->brush.setPointOfAction (this->brush.mesh (), movement.position (),
+                                        this->brush.normal ());
+          this->sculpt ();
+          if (this->brush.hasPointOfAction ())
+          {
+            assert (this->brush.mesh ().isEmpty () == false);
+            this->brush.mesh ().bufferData ();
+          }
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+      else
+      {
+        return false;
+      }
+    }
+  }
+
+  void registerSecondarySlider (ViewDoubleSlider& slider) { this->secondarySlider = &slider; }
+
+  void setRelativeRadius (float distance)
+  {
+    const Camera& cam = this->self->state ().camera ();
+    const float   factor = this->radiusEdit.doubleValue ();
+    const float   radius = cam.toWorld (float(cam.resolution ().x) * factor, distance);
+
+    this->absoluteRadius = false;
+    this->cursor.radius (radius);
+    this->brush.radius (radius);
+  }
+
+  void setRelativeRadius ()
+  {
+    this->setRelativeRadius (
+      glm::distance (this->cursor.position (), this->self->state ().camera ().position ()));
+  }
+
+  void setAbsoluteRadius ()
+  {
+    const float max = this->self->config ().get<float> ("editor/tool/sculpt/max-absolute-radius");
+    const float factor = this->radiusEdit.doubleValue ();
+
+    this->absoluteRadius = true;
+    this->brush.radius (factor * max);
+    this->cursor.radius (factor * max);
+  }
+};
+
+ToolSculpt::ToolSculpt (State& s, const char* c) : Tool (s, c), impl (new Impl (this)) {
+} ToolSculpt::~ToolSculpt ( ) {
+}
+GETTER (SculptBrush&, ToolSculpt, brush)
+GETTER (ViewCursor&, ToolSculpt, cursor)
+DELEGATE3_CONST (void, ToolSculpt, addDefaultToolTip, ViewToolTip&, bool, bool)
+DELEGATE (void, ToolSculpt, sculpt)
+DELEGATE3 (bool, ToolSculpt, drawlikeStroke, const ViewPointingEvent&, bool,
+           const std::function<void()>*)
+DELEGATE2 (bool, ToolSculpt, grablikeStroke, const ViewPointingEvent&, ToolUtilMovement&)
+DELEGATE1 (void, ToolSculpt, registerSecondarySlider, ViewDoubleSlider&)
+DELEGATE (ToolResponse, ToolSculpt, runInitialize)
+DELEGATE_CONST (void, ToolSculpt, runRender)
+DELEGATE1 (ToolResponse, ToolSculpt, runPointingEvent, const ViewPointingEvent&)
+DELEGATE1 (ToolResponse, ToolSculpt, runCursorUpdate, const glm::ivec2&)
+DELEGATE (ToolResponse, ToolSculpt, runCommit)
+DELEGATE (void, ToolSculpt, runFromConfig)

@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C845095C-0173-41D3-BD6C-0C254DFB111F}</ProjectGuid>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</WindowsTargetPlatformVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtModules>core;gui;widgets</QtModules>
+    <QtBuildConfig>debug</QtBuildConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtModules>core;xml;opengl;gui;widgets;openglextensions</QtModules>
+    <QtBuildConfig>release</QtBuildConfig>
+  </PropertyGroup>
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(QtMsBuild)\Qt.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\src\;..\glm\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS
+;GLM_ENABLE_EXPERIMENTAL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\glm\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\glm\include;.\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\glm\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\camera.cpp" />
+    <ClCompile Include="src\color.cpp" />
+    <ClCompile Include="src\config.cpp" />
+    <ClCompile Include="src\configurable.cpp" />
+    <ClCompile Include="src\dimension.cpp" />
+    <ClCompile Include="src\distance.cpp" />
+    <ClCompile Include="src\dynamic\dynamicmesh-intersection.cpp" />
+    <ClCompile Include="src\dynamic\dynamicmesh.cpp" />
+    <ClCompile Include="src\dynamic\faces.cpp" />
+    <ClCompile Include="src\dynamic\octree.cpp" />
+    <ClCompile Include="src\history.cpp" />
+    <ClCompile Include="src\import-export.cpp" />
+    <ClCompile Include="src\intersection.cpp" />
+    <ClCompile Include="src\isosurface-extraction.cpp" />
+    <ClCompile Include="src\isosurface-extraction\grid.cpp" />
+    <ClCompile Include="src\kvstore.cpp" />
+    <ClCompile Include="src\log.cpp" />
+    <ClCompile Include="src\mesh-util.cpp" />
+    <ClCompile Include="src\mesh.cpp" />
+    <ClCompile Include="src\mirror.cpp" />
+    <ClCompile Include="src\opengl-buffer-id.cpp" />
+    <ClCompile Include="src\opengl.cpp" />
+    <ClCompile Include="src\primitive\aabox.cpp" />
+    <ClCompile Include="src\primitive\cone-sphere.cpp" />
+    <ClCompile Include="src\primitive\cone.cpp" />
+    <ClCompile Include="src\primitive\cylinder.cpp" />
+    <ClCompile Include="src\primitive\plane.cpp" />
+    <ClCompile Include="src\primitive\ray.cpp" />
+    <ClCompile Include="src\primitive\sphere.cpp" />
+    <ClCompile Include="src\primitive\triangle.cpp" />
+    <ClCompile Include="src\render-mode.cpp" />
+    <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\shader.cpp" />
+    <ClCompile Include="src\sketch\bone-intersection.cpp" />
+    <ClCompile Include="src\sketch\node-intersection.cpp" />
+    <ClCompile Include="src\sketch\path-intersection.cpp" />
+    <ClCompile Include="src\sketch\path.cpp" />
+    <ClCompile Include="src\sketch\sketchmesh-intersection.cpp" />
+    <ClCompile Include="src\sketch\sketchmesh.cpp" />
+    <ClCompile Include="src\state.cpp" />
+    <ClCompile Include="src\time-delta.cpp" />
+    <ClCompile Include="src\tool.cpp" />
+    <ClCompile Include="src\tool\convert-sketch.cpp" />
+    <ClCompile Include="src\tool\delete-mesh.cpp" />
+    <ClCompile Include="src\tool\delete-sketch.cpp" />
+    <ClCompile Include="src\tool\edit-sketch.cpp" />
+    <ClCompile Include="src\tool\move-camera.cpp" />
+    <ClCompile Include="src\tool\new-mesh.cpp" />
+    <ClCompile Include="src\tool\remesh.cpp" />
+    <ClCompile Include="src\tool\sculpt.cpp" />
+    <ClCompile Include="src\tool\sculpt\crease.cpp" />
+    <ClCompile Include="src\tool\sculpt\draw.cpp" />
+    <ClCompile Include="src\tool\sculpt\flatten.cpp" />
+    <ClCompile Include="src\tool\sculpt\grab.cpp" />
+    <ClCompile Include="src\tool\sculpt\pinch.cpp" />
+    <ClCompile Include="src\tool\sculpt\reduce.cpp" />
+    <ClCompile Include="src\tool\sculpt\smooth.cpp" />
+    <ClCompile Include="src\tool\sculpt\util\action.cpp" />
+    <ClCompile Include="src\tool\sculpt\util\brush.cpp" />
+    <ClCompile Include="src\tool\sculpt\util\edge-collection.cpp" />
+    <ClCompile Include="src\tool\sketch-spheres.cpp" />
+    <ClCompile Include="src\tool\transform-mesh.cpp" />
+    <ClCompile Include="src\tool\trim-mesh.cpp" />
+    <ClCompile Include="src\tool\trim-mesh\border.cpp" />
+    <ClCompile Include="src\tool\trim-mesh\split-mesh.cpp" />
+    <ClCompile Include="src\tool\trim-mesh\trimmesh_action.cpp" />
+    <ClCompile Include="src\tool\util\movement.cpp" />
+    <ClCompile Include="src\tool\util\rotation.cpp" />
+    <ClCompile Include="src\tool\util\scaling.cpp" />
+    <ClCompile Include="src\tool\util\step.cpp" />
+    <ClCompile Include="src\util.cpp" />
+    <ClCompile Include="src\view\axis.cpp" />
+    <ClCompile Include="src\view\color-button.cpp" />
+    <ClCompile Include="src\view\configuration.cpp" />
+    <ClCompile Include="src\view\context-menu.cpp" />
+    <ClCompile Include="src\view\cursor.cpp" />
+    <ClCompile Include="src\view\double-slider.cpp" />
+    <ClCompile Include="src\view\floor-plane.cpp" />
+    <ClCompile Include="src\view\gl-widget.cpp" />
+    <ClCompile Include="src\view\info-pane.cpp" />
+    <ClCompile Include="src\view\info-pane\infopanescene.cpp" />
+    <ClCompile Include="src\view\input.cpp" />
+    <ClCompile Include="src\view\key-event.cpp" />
+    <ClCompile Include="src\view\light.cpp" />
+    <ClCompile Include="src\view\main-window.cpp" />
+    <ClCompile Include="src\view\menu-bar.cpp" />
+    <ClCompile Include="src\view\pointing-event.cpp" />
+    <ClCompile Include="src\view\resolution-slider.cpp" />
+    <ClCompile Include="src\view\shortcut.cpp" />
+    <ClCompile Include="src\view\tool-pane.cpp" />
+    <ClCompile Include="src\view\tool-tip.cpp" />
+    <ClCompile Include="src\view\two-column-grid.cpp" />
+    <ClCompile Include="src\view\vector-edit.cpp" />
+    <ClCompile Include="src\view\viewlog.cpp" />
+    <ClCompile Include="src\view\viewutil.cpp" />
+    <ClCompile Include="src\xml-conversion.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\bitset.hpp" />
+    <ClInclude Include="src\cache.hpp" />
+    <ClInclude Include="src\camera.hpp" />
+    <ClInclude Include="src\color.hpp" />
+    <ClInclude Include="src\config.hpp" />
+    <ClInclude Include="src\configurable.hpp" />
+    <ClInclude Include="src\dimension.hpp" />
+    <ClInclude Include="src\distance.hpp" />
+    <ClInclude Include="src\dynamic\dynamicmesh-intersection.hpp" />
+    <ClInclude Include="src\dynamic\dynamicmesh.hpp" />
+    <ClInclude Include="src\dynamic\faces.hpp" />
+    <ClInclude Include="src\dynamic\octree.hpp" />
+    <ClInclude Include="src\hash.hpp" />
+    <ClInclude Include="src\history.hpp" />
+    <ClInclude Include="src\import-export.hpp" />
+    <ClInclude Include="src\intersection.hpp" />
+    <ClInclude Include="src\isosurface-extraction.hpp" />
+    <ClInclude Include="src\isosurface-extraction\grid.hpp" />
+    <ClInclude Include="src\kvstore.hpp" />
+    <ClInclude Include="src\log.hpp" />
+    <ClInclude Include="src\macro.hpp" />
+    <ClInclude Include="src\maybe.hpp" />
+    <ClInclude Include="src\mesh-util.hpp" />
+    <ClInclude Include="src\mesh.hpp" />
+    <ClInclude Include="src\mirror.hpp" />
+    <ClInclude Include="src\opengl-buffer-id.hpp" />
+    <ClInclude Include="src\opengl.hpp" />
+    <ClInclude Include="src\primitive\aabox.hpp" />
+    <ClInclude Include="src\primitive\cone-sphere.hpp" />
+    <ClInclude Include="src\primitive\cone.hpp" />
+    <ClInclude Include="src\primitive\cylinder.hpp" />
+    <ClInclude Include="src\primitive\plane.hpp" />
+    <ClInclude Include="src\primitive\ray.hpp" />
+    <ClInclude Include="src\primitive\sphere.hpp" />
+    <ClInclude Include="src\primitive\triangle.hpp" />
+    <ClInclude Include="src\render-mode.hpp" />
+    <ClInclude Include="src\renderer.hpp" />
+    <ClInclude Include="src\scene.hpp" />
+    <ClInclude Include="src\shader.hpp" />
+    <ClInclude Include="src\sketch\bone-intersection.hpp" />
+    <ClInclude Include="src\sketch\fwd.hpp" />
+    <ClInclude Include="src\sketch\node-intersection.hpp" />
+    <ClInclude Include="src\sketch\path-intersection.hpp" />
+    <ClInclude Include="src\sketch\path.hpp" />
+    <ClInclude Include="src\sketch\sketchmesh-intersection.hpp" />
+    <ClInclude Include="src\sketch\sketchmesh.hpp" />
+    <ClInclude Include="src\state.hpp" />
+    <ClInclude Include="src\time-delta.hpp" />
+    <ClInclude Include="src\tool.hpp" />
+    <ClInclude Include="src\tools.hpp" />
+    <ClInclude Include="src\tool\key.hpp" />
+    <ClInclude Include="src\tool\move-camera.hpp" />
+    <ClInclude Include="src\tool\sculpt.hpp" />
+    <ClInclude Include="src\tool\sculpt\util\action.hpp" />
+    <ClInclude Include="src\tool\sculpt\util\brush.hpp" />
+    <ClInclude Include="src\tool\sculpt\util\edge-collection.hpp" />
+    <ClInclude Include="src\tool\trim-mesh\border.hpp" />
+    <ClInclude Include="src\tool\trim-mesh\split-mesh.hpp" />
+    <ClInclude Include="src\tool\trim-mesh\trimmesh_action.hpp" />
+    <ClInclude Include="src\tool\util\movement.hpp" />
+    <ClInclude Include="src\tool\util\rotation.hpp" />
+    <ClInclude Include="src\tool\util\scaling.hpp" />
+    <ClInclude Include="src\tool\util\step.hpp" />
+    <ClInclude Include="src\tree.hpp" />
+    <ClInclude Include="src\util.hpp" />
+    <ClInclude Include="src\variant.hpp" />
+    <ClInclude Include="src\view\axis.hpp" />
+    <ClInclude Include="src\view\configuration.hpp" />
+    <ClInclude Include="src\view\context-menu.hpp" />
+    <ClInclude Include="src\view\cursor.hpp" />
+    <ClInclude Include="src\view\floor-plane.hpp" />
+    <ClInclude Include="src\view\info-pane.hpp" />
+    <ClInclude Include="src\view\info-pane\infopanescene.hpp" />
+    <ClInclude Include="src\view\input.hpp" />
+    <ClInclude Include="src\view\key-event.hpp" />
+    <ClInclude Include="src\view\light.hpp" />
+    <ClInclude Include="src\view\menu-bar.hpp" />
+    <ClInclude Include="src\view\pointing-event.hpp" />
+    <ClInclude Include="src\view\shortcut.hpp" />
+    <ClInclude Include="src\view\tool-pane.hpp" />
+    <ClInclude Include="src\view\tool-tip.hpp" />
+    <ClInclude Include="src\view\two-column-grid.hpp" />
+    <QtMoc Include="src\view\vector-edit.hpp" />
+    <QtMoc Include="src\view\resolution-slider.hpp" />
+    <QtMoc Include="src\view\main-window.hpp" />
+    <QtMoc Include="src\view\gl-widget.hpp" />
+    <QtMoc Include="src\view\double-slider.hpp" />
+    <QtMoc Include="src\view\color-button.hpp" />
+    <ClInclude Include="src\view\viewlog.hpp" />
+    <ClInclude Include="src\view\viewutil.hpp" />
+    <ClInclude Include="src\xml-conversion.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\isosurface-extraction\IsosurfaceExtractionConfigurations.hs" />
+    <None Include="src\IsosurfaceExtractionConfigurations.hs" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
